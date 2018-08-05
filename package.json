@@ -1,0 +1,24 @@
+{
+  "name": "sassstarterkit",
+  "version": "1.0.0",
+  "description": "Boiler plate kit for Sass projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavaVista/Sass-Starter-Pack.git"
+  },
+  "author": "Javi Carrion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JavaVista/Sass-Starter-Pack/issues"
+  },
+  "homepage": "https://github.com/JavaVista/Sass-Starter-Pack#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.6",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1"
+  }
+}
