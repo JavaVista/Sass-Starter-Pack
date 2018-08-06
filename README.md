@@ -6,7 +6,7 @@ A light kit package for compiling Sass and running a web dev server environment.
 
 ### Dependencies installation
 
-Install for gulp, gulp-sass & browser-sync
+Install for gulp, gulp-sass, browser-sync & gulp-autoprefixer
 
 `$ npm install`
 
@@ -24,6 +24,7 @@ This will monitor your Sass files and compile them. This will also run the dev w
 * Gulp
   * Gulp-Sass plugin
   * BrowserSync plugin
+  * gulp-autoprefixer plugin
 * Javascript
 * Node.js
 
@@ -42,5 +43,5 @@ This will monitor your Sass files and compile them. This will also run the dev w
 
 Distributed under the MIT License.
 
-See [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md) 
+See [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 for more information.
