@@ -70,6 +70,7 @@ nav#main-nav {
 }
 
 #section-a{
+// @extend sharing properties from .section to section-a
 	@extend .section;
 	background: $light-color;
 	color: set-text-color($light-color);

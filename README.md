@@ -1,6 +1,6 @@
 # Sass Starter Kit
 
-A light kit package for compiling Sass and running a web dev server environment
+A light kit package for compiling Sass and running a web dev server environment. The scss folder has  some examples of the power of Sass.
 
 ## Instructions
 
@@ -23,8 +23,9 @@ This will monitor your Sass files and compile them. This will also run the dev w
 * Sass
 * Gulp
   * Gulp-Sass plugin
-  * BrowserSync plugin 
+  * BrowserSync plugin
 * Javascript
+* Node.js
 
 ## Acknowledgments
 
