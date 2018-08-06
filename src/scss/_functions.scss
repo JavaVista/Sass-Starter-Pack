@@ -1,0 +1,8 @@
+// The function set-text-color changes text color base on how dark or light the background is
+@function set-text-color($bg-color) {
+	@if (lightness($bg-color) > 50) {
+		@return #000;
+	} @else {
+		@return #fff;
+	}
+}
