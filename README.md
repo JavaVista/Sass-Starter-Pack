@@ -6,7 +6,7 @@ A light kit package for compiling Sass and running a web dev server environment.
 
 ### Dependencies installation
 
-Install for gulp, gulp-sass, browser-sync & gulp-autoprefixer
+Install for gulp 3.9.1, gulp-sass, browser-sync & gulp-autoprefixer
 
 `$ npm install`
 
