@@ -1,30 +1,37 @@
-# Sass Starter Kit
+# Sass Starter Kit 💁
 
-A light kit package for compiling Sass and running a web dev server environment. The scss folder has  some examples of the power of Sass.
+A light package for compiling Sass and running a web dev server environment. The scss folder has some examples of the power of Sass. Great way to quickly start frontend project.
+
+## Version
+
+1.1.0
 
 ## Instructions
 
-### Dependencies installation
+Clone the repository
 
-Install for gulp 3.9.1, gulp-sass, browser-sync & gulp-autoprefixer
+### Dependencies installation
 
 `$ npm install`
 
+To install the following dependencies gulp 4, gulp-sass, browser-sync & gulp-autoprefixer
+
 ### Run
 
-This will monitor your Sass files and compile them. This will also run the dev web server at http://localhost:3000
-
 `$ npm start`
+
+This will monitor your Sass files and compile them into a CSS file. It will also launch the dev web server in your browser at the following url http://localhost:3000.
+
 
 ### Technologies Used
 
 * HTML5
 * CSS3
 * Sass
-* Gulp
-  * Gulp-Sass plugin
-  * BrowserSync plugin
-  * gulp-autoprefixer plugin
+* [Gulp](https://gulpjs.com/)
+  * [Gulp-Sass plugin](https://www.npmjs.com/package/gulp-sass)
+  * [Browsersync plugin](https://browsersync.io/docs/gulp)
+  * [gulp-autoprefixer plugin](https://www.npmjs.com/package/gulp-autoprefixer)
 * Javascript
 * Node.js
 
