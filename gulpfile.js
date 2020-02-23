@@ -3,36 +3,37 @@ const gulp = require('gulp'),
 	browserSync = require('browser-sync').create(),
 	autoprefixer = require('gulp-autoprefixer');
 
-/* src for all of your source files, pre-processed, un-minified, dist for the bundled and minified files - production files, and a tmp directory which will be used as the sandbox for our local web server, development files, pre-processed, un-minified. */
+/*
+src - source files, pre-processed, un-minified.
+dist - production files, processed, minified. Used as the sandbox for browserSync local web server
+*/
+
+// Globbing patterns - *.scss: The * is a wildcard that matches any file ending with “.scss” in directory.
+// "**/*.scss" matches any file ending with .scss in root folder & any child directories.
 
 const paths = {
-	src: 'src/**/*',
-	styles: {
+	in: {
 		src: 'src/**/*',
 		srcHTML: 'src/**/*.html',
-		srcSCSS: 'src/scss/*.scss',
-		srcJS: 'src/**/*.js',
-		tmp: 'tmp',
-		tmpIndex: 'tmp/index.html',
-		tmpCSS: 'tmp/css/',
-		tmpJS: 'tmp/**/*.js',
+		srcSCSS: 'src/scss/**/*.scss',
+		srcJS: 'src/js/**/*.js',
+	},
+	out: {
 		dist: 'dist',
 		distIndex: 'dist/index.html',
-		distCSS: 'dist/**/*.css',
-		distJS: 'dist/**/*.js',
-		dest: 'src/css',
+		distCSS: 'dist/css/',
+		distJS: 'dist/js/',
 	},
-	web: {}
 };
 
 const html = () => {
-	return gulp.src(paths.styles.srcHTML).pipe(gulp.dest(paths.styles.tmp));
-}
+	return gulp.src(paths.in.srcHTML).pipe(gulp.dest(paths.out.dist));
+};
 
 // compile sass and add autoprefixer
-const style = () => {
+const styles = () => {
 	return gulp
-		.src(paths.styles.srcSCSS)
+		.src(paths.in.srcSCSS)
 		.pipe(sass())
 		.on('error', sass.logError)
 		.pipe(
@@ -41,44 +42,40 @@ const style = () => {
 				cascade: false,
 			})
 		)
-		.pipe(gulp.dest(paths.styles.tmpCSS))
+		.pipe(gulp.dest(paths.out.distCSS))
 		.pipe(browserSync.stream());
 };
 
 const js = () => {
-	return gulp.src(paths.styles.srcJS).pipe(gulp.dest(paths.styles.tmp));
-}
+	return gulp.src(paths.in.srcJS).pipe(gulp.dest(paths.out.distJS));
+};
 
 // reload page
 const reload = () => browserSync.reload();
 
-// monitor & serve
+// watch files & serve
 
 const monitor = () => {
 	browserSync.init({
 		//use this directory and serve it as a mini-server
 		server: {
-			baseDir: './src',
+			baseDir: './dist',
 			// if you serving locally using something like apache
-			// use the proxy setting instead proxy: 'yourlocal.dev'
+			// use the proxy setting instead "proxy: 'your_local.dev'"
 		},
 	});
-	gulp.watch(paths.src, html, style, js);
-	gulp.watch('src/*.html').on('change', reload);
+	gulp.watch(paths.in.srcJS, js).on('change', reload);
+	gulp.watch(paths.in.srcSCSS, styles);
+	gulp.watch(paths.in.srcHTML, html).on('change', reload);
 };
 
-// expose tasks this allows to run in the command line using i.e. gulp style
-// don't have to expose the reload function. It's currently only useful in other functions
-exports.monitor = monitor;
+// Specify if tasks run in series or parallel using "gulp.series" and "gulp.parallel"
+const build = gulp.parallel(html, styles, js, monitor);
+
+// expose tasks it allows you to run in the command line "i.e. gulp style"
+// don't have to expose the reload function. It's only useful in other functions
 exports.html = html;
-exports.style = style;
+exports.styles = styles;
 exports.js = js;
-
-// Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`
-const build = gulp.parallel(html, style, js);
-gulp.task('build', build);
-
-// TODO: scalable you can add more task here
-
-// default
-gulp.task('default', build);
+// default task just "gulp" in the command line and it runs all tasks in the build variable
+exports.default = build;
