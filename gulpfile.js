@@ -30,7 +30,7 @@ const html = () => {
 	return gulp.src(paths.in.srcHTML).pipe(gulp.dest(paths.out.dist));
 };
 
-// compile sass and add autoprefixer
+// compile sass to css and add autoprefixer adds vendor prefixes to CSS
 const styles = () => {
 	return gulp
 		.src(paths.in.srcSCSS)
