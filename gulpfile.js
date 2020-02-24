@@ -1,7 +1,9 @@
 const gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	browserSync = require('browser-sync').create(),
-	autoprefixer = require('gulp-autoprefixer');
+	autoprefixer = require('gulp-autoprefixer'),
+	sourcemaps = require('gulp-sourcemaps');
+
 
 /*
 src - source files, pre-processed, un-minified.
@@ -34,6 +36,7 @@ const html = () => {
 const styles = () => {
 	return gulp
 		.src(paths.in.srcSCSS)
+		.pipe(sourcemaps.init())
 		.pipe(sass())
 		.on('error', sass.logError)
 		.pipe(
@@ -41,7 +44,8 @@ const styles = () => {
 				browsers: ['last 2 versions'],
 				cascade: false,
 			})
-		)
+			)
+			.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(paths.out.distCSS))
 		.pipe(browserSync.stream());
 };
