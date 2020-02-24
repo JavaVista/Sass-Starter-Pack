@@ -1,9 +1,9 @@
 const gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	browserSync = require('browser-sync').create(),
-	autoprefixer = require('gulp-autoprefixer'),
-	sourcemaps = require('gulp-sourcemaps');
-
+	autoprefixer = require('autoprefixer'),
+	sourcemaps = require('gulp-sourcemaps'),
+	postcss = require('gulp-postcss');
 
 /*
 src - source files, pre-processed, un-minified.
@@ -36,16 +36,15 @@ const html = () => {
 const styles = () => {
 	return gulp
 		.src(paths.in.srcSCSS)
-		.pipe(sourcemaps.init())
+		.pipe(sourcemaps.init()) // maps the CSS styles back to the original SCSS file
 		.pipe(sass())
 		.on('error', sass.logError)
 		.pipe(
-			autoprefixer({
-				browsers: ['last 2 versions'],
-				cascade: false,
-			})
-			)
-			.pipe(sourcemaps.write('.'))
+			postcss([
+				autoprefixer(),
+			])
+		)
+		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(paths.out.distCSS))
 		.pipe(browserSync.stream());
 };
