@@ -31,9 +31,9 @@ const paths = {
 	},
 };
 
-const delDist = () => {
+const remove = () => {
 	return del(['dist/**/*.*']);
-}
+};
 
 const html = () => {
 	return gulp.src(paths.in.srcHTML).pipe(gulp.dest(paths.out.dist));
@@ -43,16 +43,15 @@ const html = () => {
 const styles = () => {
 	return gulp
 		.src(paths.in.srcSCSS)
-		.pipe(rename({ suffix: '.min' }))
 		.pipe(sourcemaps.init()) // maps the CSS styles back to the original SCSS file
-		.pipe(sass())
-		.on('error', sass.logError)
+		.pipe(sass().on('error', sass.logError))
 		.pipe(
 			postcss([
 				autoprefixer(), // add vendor prefixes to the CSS
 				cssnano(), // minify the CSS file
 			])
 		)
+		.pipe(rename({ suffix: '.min' }))
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest(paths.out.distCSS))
 		.pipe(browserSync.stream());
@@ -82,13 +81,13 @@ const monitor = () => {
 };
 
 // Specify if tasks run in series or parallel using "gulp.series" and "gulp.parallel"
-const build = gulp.parallel(delDist, html, styles, js, monitor);
+const build = gulp.parallel(remove, html, styles, js, monitor);
 
 // expose tasks it allows you to run in the command line "i.e. gulp style"
 // don't have to expose the reload function. It's only useful in other functions
 exports.html = html;
 exports.styles = styles;
 exports.js = js;
-exports.delDist = delDist;
+exports.remove = remove;
 // default task just "gulp" in the command line and it runs all tasks in the build variable
 exports.default = build;
