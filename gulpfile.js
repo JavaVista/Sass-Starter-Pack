@@ -3,7 +3,9 @@ const gulp = require('gulp'),
 	browserSync = require('browser-sync').create(),
 	autoprefixer = require('autoprefixer'),
 	sourcemaps = require('gulp-sourcemaps'),
-	postcss = require('gulp-postcss');
+	postcss = require('gulp-postcss'),
+	cssnano = require('cssnano'),
+	rename = require('gulp-rename');
 
 /*
 src - source files, pre-processed, un-minified.
@@ -36,12 +38,14 @@ const html = () => {
 const styles = () => {
 	return gulp
 		.src(paths.in.srcSCSS)
+		.pipe(rename({ suffix: '.min' }))
 		.pipe(sourcemaps.init()) // maps the CSS styles back to the original SCSS file
 		.pipe(sass())
 		.on('error', sass.logError)
 		.pipe(
 			postcss([
-				autoprefixer(),
+				autoprefixer(), // add vendor prefixes to the CSS
+				cssnano(), // minify the CSS file
 			])
 		)
 		.pipe(sourcemaps.write('.'))
