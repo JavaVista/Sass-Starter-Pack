@@ -5,7 +5,8 @@ const gulp = require('gulp'),
 	sourcemaps = require('gulp-sourcemaps'),
 	postcss = require('gulp-postcss'),
 	cssnano = require('cssnano'),
-	rename = require('gulp-rename');
+	rename = require('gulp-rename'),
+	del = require('del');
 
 /*
 src - source files, pre-processed, un-minified.
@@ -29,6 +30,10 @@ const paths = {
 		distJS: 'dist/js/',
 	},
 };
+
+const delDist = () => {
+	return del(['dist/**/*.*']);
+}
 
 const html = () => {
 	return gulp.src(paths.in.srcHTML).pipe(gulp.dest(paths.out.dist));
@@ -77,12 +82,13 @@ const monitor = () => {
 };
 
 // Specify if tasks run in series or parallel using "gulp.series" and "gulp.parallel"
-const build = gulp.parallel(html, styles, js, monitor);
+const build = gulp.parallel(delDist, html, styles, js, monitor);
 
 // expose tasks it allows you to run in the command line "i.e. gulp style"
 // don't have to expose the reload function. It's only useful in other functions
 exports.html = html;
 exports.styles = styles;
 exports.js = js;
+exports.delDist = delDist;
 // default task just "gulp" in the command line and it runs all tasks in the build variable
 exports.default = build;
