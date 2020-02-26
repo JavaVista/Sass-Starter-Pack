@@ -6,7 +6,12 @@ const gulp = require('gulp'),
 	postcss = require('gulp-postcss'),
 	cssnano = require('cssnano'),
 	rename = require('gulp-rename'),
-	del = require('del');
+	del = require('del'),
+	concat = require('gulp-concat'),
+	browserify = require('browserify'),
+	babelify = require('babelify'),
+	source = require('vinyl-source-stream');
+
 
 /*
 src - source files, pre-processed, un-minified.
@@ -22,6 +27,7 @@ const paths = {
 		srcHTML: 'src/**/*.html',
 		srcSCSS: 'src/scss/**/*.scss',
 		srcJS: 'src/js/**/*.js',
+		srcJSFile: 'src/js/main'
 	},
 	out: {
 		dist: 'dist',
@@ -31,8 +37,10 @@ const paths = {
 	},
 };
 
+const jsFiles = [paths.in.srcJSFile]; // add more js directories by adding to the array
+
 const remove = () => {
-	return del(['dist/**/*.*']);
+	return del([paths.out.dist]);
 };
 
 const html = () => {
@@ -48,7 +56,7 @@ const styles = () => {
 		.pipe(
 			postcss([
 				autoprefixer(), // add vendor prefixes to the CSS
-				cssnano(), // minify the CSS file
+				cssnano(), // file minify the CSS
 			])
 		)
 		.pipe(rename({ suffix: '.min' }))
@@ -57,8 +65,15 @@ const styles = () => {
 		.pipe(browserSync.stream());
 };
 
+// bundle modules into a single file (a bundle)
 const js = () => {
-	return gulp.src(paths.in.srcJS).pipe(gulp.dest(paths.out.distJS));
+	return browserify({
+		entries: [jsFiles],
+		transform: [babelify.configure({presets: ['@babel/preset-env']})] // Pass babelify as a transform and set its preset to @babel/preset-env
+	})
+		.bundle()
+		.pipe(source('script.min.js')) // turn bundle into something which gulp understands to be able to write it to a file
+		.pipe(gulp.dest(paths.out.distJS));
 };
 
 // reload page
@@ -81,7 +96,7 @@ const monitor = () => {
 };
 
 // Specify if tasks run in series or parallel using "gulp.series" and "gulp.parallel"
-const build = gulp.parallel(remove, html, styles, js, monitor);
+const build = gulp.parallel(gulp.series(remove, html, styles, js), monitor);
 
 // expose tasks it allows you to run in the command line "i.e. gulp style"
 // don't have to expose the reload function. It's only useful in other functions

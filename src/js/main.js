@@ -1,9 +1,11 @@
-const lifeMeans = () => {
-	let journey = (11 + 3) * 3;
-	return journey;
-};
+/* Simple module import */
 
-let hello = console.log('Hola mundo = ', lifeMeans());
+import { lifeMeans as life } from './modules/xtra';
+
+
+let hello = console.log('Hola mundo = ', life());
+
+ /* Toggle text state */
 
 let show = elem => elem.style.display = 'block';
 
@@ -32,6 +34,8 @@ document.addEventListener('click', e => {
 	toggle(content);
 }, false);
 
+
+/* Toggle simple modal */
 
 // Get the modal
 var modal = document.getElementById("myModal");
