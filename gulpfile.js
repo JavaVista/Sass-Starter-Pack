@@ -10,7 +10,9 @@ const gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	browserify = require('browserify'),
 	babelify = require('babelify'),
-	source = require('vinyl-source-stream');
+	source = require('vinyl-source-stream'),
+	buffer = require('vinyl-buffer'),
+	uglify = require('gulp-uglify');
 
 
 /*
@@ -73,6 +75,8 @@ const js = () => {
 	})
 		.bundle()
 		.pipe(source('script.min.js')) // turn bundle into something which gulp understands to be able to write it to a file
+		.pipe(buffer()) // turn into a buffer
+		.pipe(uglify()) // file minify the JS
 		.pipe(gulp.dest(paths.out.distJS));
 };
 

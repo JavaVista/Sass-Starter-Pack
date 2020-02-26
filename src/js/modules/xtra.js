@@ -2,6 +2,7 @@
 
 export const lifeMeans = () => {
 	let journey = (11 + 3) * 3;
+	journey + console.log('Life means');
 	return journey;
 };
 
