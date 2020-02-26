@@ -4,7 +4,7 @@ A light package for compiling Sass and running a web dev server environment. The
 
 ## Version
 
-1.1.0
+1.1.1
 
 ## Instructions
 
@@ -29,9 +29,21 @@ This will monitor your Sass files and compile them into a CSS file. It will also
 * CSS3
 * Sass
 * [Gulp](https://gulpjs.com/)
-  * [Gulp-Sass plugin](https://www.npmjs.com/package/gulp-sass)
-  * [Browsersync plugin](https://browsersync.io/docs/gulp)
-  * [gulp-autoprefixer plugin](https://www.npmjs.com/package/gulp-autoprefixer)
+  * Gulp Plugins:
+    * [Gulp-Sass](https://www.npmjs.com/package/gulp-sass) - compile sass to css
+    * [Browsersync](https://browsersync.io/docs/gulp) - live Reload and keep multiple browsers & devices in sync
+    * [gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer) - add vendor prefixes to the CSS
+    * [gulp-postcss](https://github.com/postcss/gulp-postcss) - pipe CSS through several plugins, but parse CSS only once
+    * [cssnano](https://cssnano.co/) - minify the CSS
+    * [del](https://www.npmjs.com/package/del) - deletes all files
+    * [gulp-rename](https://www.npmjs.com/package/gulp-rename) - simple file renaming
+    * [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps) -  to tell which file and line in your original code a part of minified code comes from
+    * [gulp-concat](https://www.npmjs.com/package/gulp-concat) -  concatenates multiple JS files into one file
+    * [browserify](http://browserify.org/) -  bundle modules into a single file (a bundle)
+    * [babelify](https://www.npmjs.com/package/babelify) - babel browserify transform so that Browserify can use Babel to transform each file before bundling them up
+    * [@babel/core](https://babeljs.io/docs/en/babel-core) - to use modern javascript in browsers we transpile the bundle into javascript understood by current and last-gen browsers
+    * [@babel/preset-env](https://babeljs.io/docs/en/next/babel-preset-env.html) - babel smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms. Without setting a target it will default to transforming ECMAScript 2015+ code
+    * [vinyl-source-stream](https://www.npmjs.com/package/vinyl-source-stream) - convert the readable stream you get from browserify into a vinyl stream and turns bundle into something which gulp understands to be able to write it to a file
 * Javascript
 * Node.js
 
