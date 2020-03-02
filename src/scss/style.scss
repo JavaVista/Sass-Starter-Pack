@@ -77,13 +77,30 @@ nav#main-nav {
 	@extend .section;
 	background: $light-color;
 	color: set-text-color($light-color);
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: url(../assets/hacker-3342696_1920.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.hero h1 {
+	font-size: 5em;
+	margin-top: 0;
+	margin-bottom: 0.5em;
 }
 
 #section-b {
 	@extend .section;
 	background: $dark-color;
 	color: set-text-color($dark-color);
-	margin-top: 2em;
+	width: 50vw;
+	height: 20vh;
+	margin: 2em auto auto;
 }
 
 .button {
@@ -95,6 +112,11 @@ nav#main-nav {
 	// Control the darkness of the $primary-color button
 	background: darken($primary-color, 10%);
 	color: set-text-color($primary-color);
+	display: block;
+	width: 100px;
+	padding: 1em;
+	margin: 50px auto auto;
+	border-radius: 20px;
 }
 
 .button-b {

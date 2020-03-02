@@ -12,7 +12,9 @@ const gulp = require('gulp'),
 	babelify = require('babelify'),
 	source = require('vinyl-source-stream'),
 	buffer = require('vinyl-buffer'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	imagemin = require('gulp-imagemin'),
+	newer = require('gulp-newer');
 
 
 /*
@@ -29,13 +31,15 @@ const paths = {
 		srcHTML: 'src/**/*.html',
 		srcSCSS: 'src/scss/**/*.scss',
 		srcJS: 'src/js/**/*.js',
-		srcJSFile: 'src/js/main'
+		srcJSFile: 'src/js/main',
+		srcImg: 'src/assets/**/*'
 	},
 	out: {
 		dist: 'dist',
 		distIndex: 'dist/index.html',
 		distCSS: 'dist/css/',
 		distJS: 'dist/js/',
+		distImg: 'dist/assets/'
 	},
 };
 
@@ -80,6 +84,18 @@ const js = () => {
 		.pipe(gulp.dest(paths.out.distJS));
 };
 
+const img = () => {
+	return gulp
+		.src(paths.in.srcImg)
+		.pipe(newer(paths.out.distImg)) // pass through newer images only
+		.pipe(imagemin([
+			imagemin.gifsicle({ interlaced: true }), // Interlace gif for progressive rendering
+			imagemin.mozjpeg({ progressive: true }),
+			imagemin.optipng({optimizationLevel: 5}) // levels 2 and higher enable multiple IDAT compression trials; the higher the level, the more trials
+		]))
+		.pipe(gulp.dest(paths.out.distImg));
+};
+
 // reload page
 const reload = () => browserSync.reload();
 
@@ -100,13 +116,14 @@ const monitor = () => {
 };
 
 // Specify if tasks run in series or parallel using "gulp.series" and "gulp.parallel"
-const build = gulp.parallel(gulp.series(remove, html, styles, js), monitor);
+const build = gulp.parallel(gulp.series(remove, html, styles, js, img), monitor);
 
 // expose tasks it allows you to run in the command line "i.e. gulp style"
 // don't have to expose the reload function. It's only useful in other functions
 exports.html = html;
 exports.styles = styles;
 exports.js = js;
+exports.img = img;
 exports.remove = remove;
 // default task just "gulp" in the command line and it runs all tasks in the build variable
 exports.default = build;
