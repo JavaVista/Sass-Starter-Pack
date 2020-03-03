@@ -1,10 +1,14 @@
 # Sass Starter Kit 💁
 
-A light package for compiling Sass and running a web dev server environment. The scss folder has some examples of the power of Sass. Great way to quickly start frontend project.
+A light package for compiling Sass and running a web dev server environment. The scss folder has some examples of the power of Sass. The kit includes the gulp toolkit for automating  painful or time-consuming tasks in your development workflow. A great way to quickly start a frontend project.
 
 ## Version
 
-1.1.1
+1.1.2
+
+### Screenshot
+
+![Sass Website](/SassSite.png)
 
 ## Instructions
 
@@ -29,7 +33,7 @@ This will monitor your Sass files and compile them into a CSS file. It will also
 * CSS3
 * Sass
 * [Gulp](https://gulpjs.com/)
-  * Gulp Plugins:
+  * Gulp Plugins and npm Packages:
     * [Gulp-Sass](https://www.npmjs.com/package/gulp-sass) - compile sass to css
     * [Browsersync](https://browsersync.io/docs/gulp) - live Reload and keep multiple browsers & devices in sync
     * [gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer) - add vendor prefixes to the CSS
@@ -43,7 +47,12 @@ This will monitor your Sass files and compile them into a CSS file. It will also
     * [babelify](https://www.npmjs.com/package/babelify) - babel browserify transform so that Browserify can use Babel to transform each file before bundling them up
     * [@babel/core](https://babeljs.io/docs/en/babel-core) - to use modern javascript in browsers we transpile the bundle into javascript understood by current and last-gen browsers
     * [@babel/preset-env](https://babeljs.io/docs/en/next/babel-preset-env.html) - babel smart preset that allows you to use the latest JavaScript without needing to micromanage which syntax transforms. Without setting a target it will default to transforming ECMAScript 2015+ code
-    * [vinyl-source-stream](https://www.npmjs.com/package/vinyl-source-stream) - convert the readable stream you get from browserify into a vinyl stream and turns bundle into something which gulp understands to be able to write it to a file
+    * [vinyl-source-stream](https://www.npmjs.com/package/vinyl-source-stream) - convert the readable stream you get from browserify into a vinyl (Vinyl is a very simple metadata object that describes a file. A virtual file format) stream and turns bundle into something which gulp understands to be able to write it to a file
+    * [vinyl-buffer](https://www.npmjs.com/package/vinyl-buffer) - Convert streaming vinyl files to use buffers
+    * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify) - minify the JS
+    * [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin) - minify the Images
+    * [gulp-newer](https://www.npmjs.com/package/gulp-newer) - passes source files that are newer than corresponding destination
+    * [gulp-inject](https://www.npmjs.com/package/gulp-inject) -  inject JS and CSS files into the HTML
 * Javascript
 * Node.js
 
