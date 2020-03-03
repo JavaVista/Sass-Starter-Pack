@@ -76,9 +76,8 @@ nav#main-nav {
 	// @extend sharing properties from .section to section-a
 	@extend .section;
 	background: $light-color;
-	color: set-text-color($light-color);
-	width: 100vw;
-	height: 100vh;
+	color: set-text-color($primary-color);
+	height: 50vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -123,7 +122,7 @@ nav#main-nav {
 	@extend .button;
 	// Control the lightness of the $secondary-color button
 	background: lighten($secondary-color, 10%);
-	color: set-text-color($secondary-color);
+	color: set-text-color($dark-color);
 }
 
 /* The Modal (background) */
@@ -138,11 +137,12 @@ nav#main-nav {
 	height: 100%; /* Full height */
 	overflow: auto; /* Enable scroll if needed */
 	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+	background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
 }
 /* Modal Content */
 .modal-content {
 	background: lighten($light-color, 10%);
+	color: set-text-color($dark-color);
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
